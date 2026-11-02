@@ -1,0 +1,14 @@
+.tools/
+artifacts/
+build/
+.local/
+__pycache__/
+*.pyc
+.env*
+*.p12
+*.p8
+*.mobileprovision
+*.ipa
+*.xcuserstate
+xcuserdata/
+*.log

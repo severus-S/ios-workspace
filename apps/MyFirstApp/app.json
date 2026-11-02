@@ -1,0 +1,6 @@
+{
+  "name": "MyFirstApp",
+  "bundleId": "com.sjx13.ios.myfirstapp",
+  "version": "1.0.0",
+  "deploymentTarget": "17.0"
+}
