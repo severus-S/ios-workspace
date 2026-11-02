@@ -28,3 +28,6 @@ Run 41439595434（push，提交 8657f9d）最终 success，完整未签名构建
 Windows 使用指定 RunId 和默认最新成功两条路径下载，来源、SHA256、Bundle ID 和 arm64 均校验通过。
 生成 MyFirstApp 1.0.0 (2)。下载器增加 `artifacts/latest/<App>` 稳定路径与 manifest/SHA256 整理。
 deploy-ios.ps1 已用真实 IPA 执行校验并输出指引；手机签名/安装和续签仍未执行。
+
+最终使用 publish-ios.ps1 提交推送 e5ac14a，自动触发 Run 41439857459 再次成功（job 18 秒，不含排队）。
+默认下载命令自动解析 origin 并下载最新版，稳定路径更新为 MyFirstApp 1.0.0 (3)。全部验证详情及哈希已保存。

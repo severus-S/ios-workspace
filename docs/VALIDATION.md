@@ -23,8 +23,10 @@
 | 真实 IPA 生成 | 上述成功运行 | Xcode 16.4 / iPhoneOS SDK 18.5，Swift 编译、plutil、lipo、otool、codesign 未签名检查、ditto 打包、IPA 校验、Artifact 上传均通过 |
 | Windows 下载/部署准备 | download-ipa.ps1 指定 RunId 及默认最新成功两种方式；deploy-ios.ps1 不带 -Open | Manifest 来源、SHA256、Bundle ID、arm64 校验通过；只输出人工安装指引，未安装到手机 |
 
-真实产物：`artifacts/latest/MyFirstApp/MyFirstApp-unsigned.ipa`，版本 1.0.0 (2)，最低 iOS 17.0，Bundle ID com.sjx13.ios.myfirstapp。
-SHA256：`8962552d381a3e06866e2f199c24690a75b43782aec237df89720284b260d9aa`。
+最终复测：Run [41439857459](https://github.com/severus-S/ios-workspace/actions/runs/41439857459)，push 事件、提交 e5ac14a1e9aa1adb9770584b4dcb32215a69893a、success，job 用时 18 秒（不含排队）。
+publish-ios.ps1 已真实提交/推送；download-ipa.ps1 无 -Repo/RunId 自动解析 origin、选择最新成功并整理到稳定目录，均通过。
+当前真实产物：`artifacts/latest/MyFirstApp/MyFirstApp-unsigned.ipa`，版本 1.0.0 (3)，最低 iOS 17.0，Bundle ID com.sjx13.ios.myfirstapp。
+SHA256：`b4ad77ff7fdd0171862df5bd0be0053ecc71c71a0b20a665f7f33691a2e3f886`。
 后续下载可能更新稳定路径，须以旁边 manifest.json 的 runId/commit/hash 为准。
 
 ## 当前阻塞和未验证
