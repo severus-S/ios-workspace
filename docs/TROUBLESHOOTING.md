@@ -35,3 +35,9 @@
 2026-11-02：PowerShell Invoke-WebRequest 的 `.Content` 可能是字节数组，直接用字符串正则比较下载校验和会误报。
 改为先把官方 checksums.txt 下载到文件，再 Get-Content 比较对应平台条目与 Get-FileHash。
 本次 gh ZIP 的 SHA256 与官方对应条目一致；这只是下载完整性验证，不代表 GitHub 已登录或云构建通过。
+
+## 首次云端实测：lipo 参数顺序
+
+Run `41439468904`：Xcode 16.4 / iPhoneOS SDK 18.5 输出 BUILD SUCCEEDED，随后架构校验失败。
+`lipo -verify_arch arm64 <file>` 把文件路径当作架构参数；已改成 `xcrun lipo <file> -verify_arch arm64`。
+此次失败不是 Swift 编译错误；最终复测结果记录在 VALIDATION.md。

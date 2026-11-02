@@ -33,7 +33,7 @@ def main():
     assert app.is_dir(), 'Xcode produced no app'
     # Native tools validate executable architecture and plist before packaging.
     run(['plutil', '-lint', app / 'Info.plist'])
-    run(['xcrun', 'lipo', '-verify_arch', 'arm64', app / a.app])
+    run(['xcrun', 'lipo', app / a.app, '-verify_arch', 'arm64'])
     run(['xcrun', 'otool', '-hv', app / a.app])
     signature = subprocess.run(['codesign', '--display', str(app)], capture_output=True, text=True)
     assert signature.returncode != 0 and 'not signed at all' in signature.stderr, 'Unexpected signing state; inspect codesign before distributing unsigned IPA'
