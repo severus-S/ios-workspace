@@ -120,6 +120,7 @@ pwsh -File scripts/deploy-ios.ps1 -Ipa 'D:\完整路径\MyFirstApp-unsigned.ipa'
 
 下载器查最近 30 个成功 main 构建，寻找含目标 App 的保留 Artifact；不存在就报错，不把其他 App 当成当前结果。
 校验 commit/run ID、SHA256、IPA 内部结构，输出绝对路径和来源提交。
+通过后同时整理到稳定路径 `artifacts/latest/<App>/<App>-unsigned.ipa`，旁边保留 manifest 和校验和。此处 latest 是最新一次成功下载，不保证远端最新提交已构建完成。
 若最新构建正在运行或失败，下载到的成功产物可能较旧：安装前核对输出 commit 与预期提交。
 deploy 只校验和打开目录，可 `-SideloadlyPath '实际 exe 路径' -Open` 启动 GUI；没有自动安装 CLI。
 Actions Artifact 的外层 ZIP 和其中的 IPA 是不同文件。把 IPA 拖进 Sideloadly，不能拖外层 ZIP。

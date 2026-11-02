@@ -17,16 +17,24 @@
 | 原生工程格式 | openstep-parser 2.0.3 解析 project.pbxproj | 15 个对象、根类型 PBXProject；不是 Xcode 构建验证 |
 | Action 固定版本 | git ls-remote 对比两份官方 release tag | checkout v7.0.1 与 upload-artifact v7.0.2 SHA 对应 |
 | Git 文件边界 | git diff --cached --check、git check-ignore | 33 个项目文件；工具、产物、凭据扩展和缓存被忽略，暂存差异无空白错误 |
+| 私有 GitHub 仓库 | https://github.com/severus-S/ios-workspace | 已创建 PRIVATE，main 已推送 |
+| 手动触发与失败上报 | Run 41439468904 | build-ios.ps1 返回准确 run ID、等待并传播失败；Swift 编译成功，lipo 参数错误已定位修正 |
+| push 自动构建 | https://github.com/severus-S/ios-workspace/actions/runs/41439595434 | 事件 push，提交 8657f9de37a20ed7b736cbddf452efb1b5b15640，最终 success |
+| 真实 IPA 生成 | 上述成功运行 | Xcode 16.4 / iPhoneOS SDK 18.5，Swift 编译、plutil、lipo、otool、codesign 未签名检查、ditto 打包、IPA 校验、Artifact 上传均通过 |
+| Windows 下载/部署准备 | download-ipa.ps1 指定 RunId 及默认最新成功两种方式；deploy-ios.ps1 不带 -Open | Manifest 来源、SHA256、Bundle ID、arm64 校验通过；只输出人工安装指引，未安装到手机 |
+
+真实产物：`artifacts/latest/MyFirstApp/MyFirstApp-unsigned.ipa`，版本 1.0.0 (2)，最低 iOS 17.0，Bundle ID com.sjx13.ios.myfirstapp。
+SHA256：`8962552d381a3e06866e2f199c24690a75b43782aec237df89720284b260d9aa`。
+后续下载可能更新稳定路径，须以旁边 manifest.json 的 runId/commit/hash 为准。
 
 ## 当前阻塞和未验证
 
 - GitHub CLI 已登录 severus-S。本人已授权创建私有仓库 severus-S/ios-workspace 并首次构建；本人确认免费额度和超额阻断预算（代理未读取账单）。
-- macOS Xcode 真实编译、SDK 兼容、codesign 未签名检查、ditto 实包及 Artifact 上传/下载端到端未执行。
-- 当前没有真实 IPA，不把测试夹具当成可安装成果。
+- macOS 编译到 Windows 下载已通过；iPhone 18 Pro/iOS 27.2 的实际运行兼容仍待真机验证。
 - 本机未检测到 Bonjour/Apple Mobile Device 服务；Sideloadly 安装状态尚未由 GUI 确认。
 - 已下载官网 Sideloadly x64 安装器至 `.tools/installers`，MZ 文件头存在；Authenticode 为 NotSigned，因此没有验证发布者身份，也没有执行安装器。
 - 未安装 Apple 组件、未 USB 配对、未签名安装，未验证 iPhone 18 Pro/iOS 27.2 兼容性。
-- Swift 源码尚未经过 Swift 编译器；界面、持久化、覆盖升级保留数据和 Wi-Fi 侧载尚未真机验证。
+- Swift 源码已真实编译；界面、持久化、覆盖升级保留数据和 Wi-Fi 侧载尚未真机验证。
 - 未检查/修改 OpenWrt；同 LAN、隔离设置和 mDNS 需实网检查。
 - Daemon 自动续签尚未验证；需要跨初始到期周期的真实日志和运行证据。
 
@@ -34,8 +42,8 @@
 
 | 环节 | 需要的证据 | 结果 |
 |---|---|---|
-| 第一次云端编译 | 仓库、run URL、commit、Xcode/SDK、成功状态 | 待验证 |
-| IPA 下载 | RunId、manifest、SHA256、内部结构检查 | 待验证 |
+| 第一次云端编译 | 仓库、run URL、commit、Xcode/SDK、成功状态 | 已通过，见上表 |
+| IPA 下载 | RunId、manifest、SHA256、内部结构检查 | 已通过，见上表 |
 | 首次 USB 安装 | Sideloadly 脱敏日志、设备打开正确版本 | 待验证 |
 | 持久化 | 点击/便签值，结束进程后仍保留 | 待验证 |
 | 覆盖更新 | 新版本号 + 原有数据，未卸载 | 待验证 |

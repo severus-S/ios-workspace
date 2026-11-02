@@ -23,3 +23,8 @@
 
 私有仓库已创建并推送。手动 dispatch Run 41439468904 证实 SwiftUI 在 Xcode 16.4/iPhoneOS 18.5 SDK 编译成功。
 后续 lipo 参数顺序错误导致作业失败；已修正 ci_build.py 并通过 main push 复测。
+
+Run 41439595434（push，提交 8657f9d）最终 success，完整未签名构建/打包/上传通过。
+Windows 使用指定 RunId 和默认最新成功两条路径下载，来源、SHA256、Bundle ID 和 arm64 均校验通过。
+生成 MyFirstApp 1.0.0 (2)。下载器增加 `artifacts/latest/<App>` 稳定路径与 manifest/SHA256 整理。
+deploy-ios.ps1 已用真实 IPA 执行校验并输出指引；手机签名/安装和续签仍未执行。

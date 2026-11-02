@@ -14,7 +14,7 @@ python scripts/selftest.py
 # 日常：先编辑代码，再提交选定路径
 pwsh -File scripts/publish-ios.ps1 -Paths apps/MyFirstApp -Message 'Update app' -BillingChecked
 pwsh -File scripts/download-ipa.ps1 -App MyFirstApp
-pwsh -File scripts/deploy-ios.ps1 -Ipa '下载脚本输出的绝对 IPA 路径' -Open
+pwsh -File scripts/deploy-ios.ps1 -Ipa artifacts/latest/MyFirstApp/MyFirstApp-unsigned.ipa -Open
 # 新 App
 pwsh -File scripts/new-app.ps1 -Name SecondApp -BundleId com.sjx13.ios.secondapp
 ```

@@ -31,9 +31,14 @@ foreach ($run in $runs) {
     if ($manifest.commit -ne $status.headSha -or [string]$manifest.runId -ne [string]$id) { throw 'Manifest provenance mismatch.' }
     if ((Get-FileHash $ipa.FullName -Algorithm SHA256).Hash.ToLowerInvariant() -ne $manifest.sha256) { throw 'IPA checksum mismatch.' }
     Invoke-Checked python @("$PSScriptRoot/validate_ipa.py", $ipa.FullName, '--bundle-id', $config.bundleId)
+    $ready = Join-Path $script:Root "artifacts/latest/$App"
+    New-Item -ItemType Directory -Path $ready -Force | Out-Null
+    Copy-Item -LiteralPath $ipa.FullName -Destination (Join-Path $ready $ipa.Name) -Force
+    Copy-Item -LiteralPath (Join-Path $ipa.DirectoryName 'manifest.json') -Destination (Join-Path $ready 'manifest.json') -Force
+    Copy-Item -LiteralPath (Join-Path $ipa.DirectoryName 'SHA256SUMS') -Destination (Join-Path $ready 'SHA256SUMS') -Force
     Write-Host "Verified download: $($ipa.FullName)"
     Write-Host "Commit: $($status.headSha) | $($status.url)"
-    Write-Output $ipa.FullName
+    Write-Output (Join-Path $ready $ipa.Name)
     return
 }
 throw 'No matching valid retained artifact in recent successful runs. Rebuild or pass -RunId.'
