@@ -12,7 +12,8 @@
 - 下载并校验工作区便携 GitHub CLI 2.103.3 和 actionlint 1.7.12；未改 PATH。
 - 下载官网 Sideloadly x64 安装器，记录 SHA256 和 NotSigned 结果，未执行安装；Apple 组件仍待安装。
 - 本地离线模板/IPA 负例、PowerShell 解析/失败路径、工作流静态和 PBX OpenStep 解析通过，具体见 VALIDATION.md。
-- 初始化本地 Git main，并保存 `Initialize reusable iOS workspace` 初始提交。未登录 GitHub、未配置远程、未推送、未运行云端构建。
+- 初始化本地 Git main，并保存 `Initialize reusable iOS workspace` 初始提交 `936447d`。
+- 随后本人完成 GitHub severus-S 登录，授权创建私有仓库 severus-S/ios-workspace 并运行构建；本人确认免费额度和超额阻断预算。最终云端结果见 VALIDATION.md。
 - 未修改 OpenWrt、Windows 网络/防火墙/电源设置，未购买服务，未采集 Apple 凭据。
 - iPhone 配对、签名、安装、覆盖保留数据和至少一轮自然后台续签尚待本人操作与实测。
 

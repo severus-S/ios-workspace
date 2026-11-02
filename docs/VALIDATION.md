@@ -20,8 +20,7 @@
 
 ## 当前阻塞和未验证
 
-- GitHub CLI 未登录（auth status 实测），没有 origin；需要本人浏览器授权并指定 OWNER/REPO。
-- 未读取本人 GitHub 额度/账单；需要本人确认剩余额度和超额阻断预算，再执行首次 push/dispatch。
+- GitHub CLI 已登录 severus-S。本人已授权创建私有仓库 severus-S/ios-workspace 并首次构建；本人确认免费额度和超额阻断预算（代理未读取账单）。
 - macOS Xcode 真实编译、SDK 兼容、codesign 未签名检查、ditto 实包及 Artifact 上传/下载端到端未执行。
 - 当前没有真实 IPA，不把测试夹具当成可安装成果。
 - 本机未检测到 Bonjour/Apple Mobile Device 服务；Sideloadly 安装状态尚未由 GUI 确认。
