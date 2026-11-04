@@ -16,6 +16,7 @@ def config(app):
     assert re.fullmatch(r"[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+){2,}", data["bundleId"]), "Invalid bundle ID"
     assert re.fullmatch(r"\d+\.\d+\.\d+", data["version"]), "Invalid version"
     assert re.fullmatch(r"\d+\.\d+", data["deploymentTarget"]), "Invalid deployment target"
+    assert isinstance(data.get('displayName', app), str) and re.fullmatch(r'[\w \u4e00-\u9fff.-]{1,50}', data.get('displayName', app)), 'Invalid display name'
     return folder, data
 
 
@@ -37,7 +38,7 @@ def generate(app):
         SDKROOT = iphoneos; SUPPORTED_PLATFORMS = iphoneos; ARCHS = arm64;
         IPHONEOS_DEPLOYMENT_TARGET = {c['deploymentTarget']}; TARGETED_DEVICE_FAMILY = 1;
         SWIFT_VERSION = 5.0; SWIFT_OPTIMIZATION_LEVEL = "-O";
-        GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_CFBundleDisplayName = "{app}";
+        GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_CFBundleDisplayName = "{c.get('displayName', app)}";
         INFOPLIST_KEY_UILaunchScreen_Generation = YES;
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
         INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

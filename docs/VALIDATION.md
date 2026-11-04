@@ -53,3 +53,13 @@ SHA256：`b4ad77ff7fdd0171862df5bd0be0053ecc71c71a0b20a665f7f33691a2e3f886`。
 | 自然后台续签 | 自动执行时间、新到期时间、跨原到期日可运行 | 待验证 |
 
 日志保存前删除邮箱、设备唯一标识、认证数据和其他个人信息。签名密码不记录。
+
+## 2026-11-04–05 Luckin Random 新项目
+
+新增 `apps/LuckinRandom`（0.1.0，com.sjx13.ios.luckinrandom）及 `services/luckin-random`。详细状态见 [项目进度](luckin-random/PROGRESS.md)。
+本机 Node 22.14.0 / TypeScript 构建、27 项 Mock 后端测试、4 项 Python 工作区回归、actionlint、Swift 语法树解析、工程生成通过；6 项 Swift 核心测试已编写，尚未在 macOS 执行。
+真实 MCP 请求返回 401，实时 schema、门店/商品/预览/真实订单/支付均未通过账号验收。官方网页公开样例与合成 Mock schema 分开记录。
+GitHub 账单只读查询返回 404 并提示缺 user scope，未扩大权限、未推送或触发本 App 云端构建。无 LuckinRandom IPA、签名安装或真机成功证据；既有 MyFirstApp 验证不适用于新 App。
+真实下单默认关闭；未进行真实消费、服务器部署或电脑/手机界面操作。
+
+2026-11-05 后续：用户明确确认本次 Actions 额度，并要求瑞幸 Token 正式使用时在手机 App 设置页填写。已补手机使用指南；构建不需要 Token。采用 origin/main 上的独立构建分支，只上传本 App 改动，保留本地主分支的其他诊断提交与未提交修改。

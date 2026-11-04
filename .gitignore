@@ -12,3 +12,8 @@ __pycache__/
 *.xcuserstate
 xcuserdata/
 *.log
+node_modules/
+services/luckin-random/dist/
+*.sqlite*
+.build/
+.swiftpm/

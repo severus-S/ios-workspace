@@ -1,5 +1,7 @@
 # 可复用 iOS 开发工作区
 
+新增项目：[Luckin Random · 瑞幸随机咖啡](apps/LuckinRandom/README.md)。当前为待云端编译和真实支付验收的开发版本，进度与外部条件见 [项目进度](docs/luckin-random/PROGRESS.md)。
+
 工作区根目录就是 `D:\CodexWorking\iOS`，不再嵌套一层目录。
 新 Codex 会话先读 [AGENTS.md](AGENTS.md)，再读 [完整操作手册](docs/IOS_WORKFLOW.md)。
 

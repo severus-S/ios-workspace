@@ -21,6 +21,8 @@ def main():
     assert platform.system() == 'Darwin', 'Xcode build requires macOS; use GitHub Actions from Windows'
     folder, c = config(a.app)
     project = generate(a.app)
+    if c.get('testPackage'):
+        run(['swift', 'test', '--package-path', folder])
     work = ROOT / 'build' / a.app
     out = ROOT / 'artifacts' / a.app
     out.mkdir(parents=True, exist_ok=True)

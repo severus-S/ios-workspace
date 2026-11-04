@@ -2,7 +2,7 @@ name: Build unsigned iOS IPA
 on:
   push:
     branches: [main]
-    paths: ['apps/**', 'templates/**', 'scripts/**', '.github/workflows/build-ios.yml']
+    paths: ['apps/**', 'services/luckin-random/**', 'templates/**', 'scripts/**', '.github/workflows/build-ios.yml']
   workflow_dispatch:
     inputs:
       app:
@@ -23,6 +23,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - name: Test Luckin Random backend without real orders
+        working-directory: services/luckin-random
+        run: |
+          node --version
+          npm ci --ignore-scripts
+          npm test
       - name: Build and validate
         env:
           SELECTED_APP: ${{ inputs.app || 'ALL' }}
