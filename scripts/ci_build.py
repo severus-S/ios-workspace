@@ -25,9 +25,11 @@ def main():
     out = ROOT / 'artifacts' / a.app
     out.mkdir(parents=True, exist_ok=True)
     work.mkdir(parents=True, exist_ok=True)
+    if (folder / 'Package.swift').is_file():
+        run(['swift', 'test', '--package-path', folder])
     run(['xcodebuild', '-version'])
     run(['xcodebuild', '-showsdks'])
-    build = os.environ.get('GITHUB_RUN_NUMBER', '1')
+    build = c.get('buildNumber', os.environ.get('GITHUB_RUN_NUMBER', '1'))
     run(['xcodebuild', '-project', project, '-target', a.app, '-configuration', 'Release', '-sdk', 'iphoneos', '-arch', 'arm64', f'CONFIGURATION_BUILD_DIR={work / "products"}', f'OBJROOT={work / "obj"}', 'CODE_SIGNING_ALLOWED=NO', 'CODE_SIGNING_REQUIRED=NO', 'CODE_SIGN_IDENTITY=', f'CURRENT_PROJECT_VERSION={build}', 'build'])
     app = work / 'products' / f'{a.app}.app'
     assert app.is_dir(), 'Xcode produced no app'

@@ -1,0 +1,8 @@
+{
+  "name": "QidianFood",
+  "bundleId": "com.sjx13.ios.qidianfood",
+  "displayName": "蒲河食单",
+  "version": "0.1.0",
+  "buildNumber": 1,
+  "deploymentTarget": "17.0"
+}
