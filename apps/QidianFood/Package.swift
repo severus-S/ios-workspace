@@ -8,8 +8,8 @@ let package = Package(
         .target(
             name: "QidianCatalog",
             path: "Sources",
-            exclude: ["App.swift", "ContentView.swift"],
-            sources: ["CatalogAPI.swift", "CatalogModel.swift"]
+            exclude: ["App.swift", "ContentView.swift", "MenuViews.swift", "AccountViews.swift", "AddressBookView.swift"],
+            sources: ["CatalogAPI.swift", "CatalogModel.swift", "MenuModel.swift", "DemoAccount.swift"]
         ),
         .testTarget(name: "QidianCatalogTests", dependencies: ["QidianCatalog"], path: "Tests")
     ]

@@ -9,17 +9,37 @@ private enum CatalogRoute: Hashable {
 @MainActor
 struct ContentView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @State private var model = CatalogModel()
-    @State private var searchText = ""
-
-    private var keyword: String {
-        searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
+    @State private var cart = CartModel()
+    @State private var account = DemoAccount()
 
     private var accent: Color {
         colorScheme == .dark
             ? Color(red: 0.49, green: 0.83, blue: 0.75)
             : Color(red: 0.03, green: 0.39, blue: 0.34)
+    }
+
+    var body: some View {
+        TabView {
+            CatalogView(cart: cart)
+                .tabItem { Label("商家", systemImage: "storefront") }
+            NavigationStack { CartView(cart: cart) }
+                .tabItem { Label("购物车", systemImage: "cart") }
+                .badge(cart.itemCount)
+            NavigationStack { AccountView(account: account) }
+                .tabItem { Label("我的", systemImage: "person.crop.circle") }
+        }
+        .tint(accent)
+    }
+}
+
+@MainActor
+private struct CatalogView: View {
+    let cart: CartModel
+    @State private var model = CatalogModel()
+    @State private var searchText = ""
+
+    private var keyword: String {
+        searchText.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     var body: some View {
@@ -49,7 +69,7 @@ struct ContentView: View {
                 case .favorites:
                     FavoritesView(model: model)
                 case let .shop(shop):
-                    ShopDetailView(shop: shop, model: model)
+                    ShopDetailView(shop: shop, model: model, cart: cart)
                 }
             }
             .task(id: keyword) {
@@ -60,7 +80,6 @@ struct ContentView: View {
                 await model.reload(keyword: keyword)
             }
         }
-        .tint(accent)
     }
 
     @ViewBuilder
@@ -185,6 +204,7 @@ private struct FavoritesView: View {
 private struct ShopDetailView: View {
     let shop: Shop
     let model: CatalogModel
+    let cart: CartModel
     @State private var copied = false
 
     var body: some View {
@@ -225,6 +245,15 @@ private struct ShopDetailView: View {
                 }
             } footer: {
                 Text("在微信内打开「奇点美食」，登录后搜索店名可查看菜单和下单。")
+            }
+            Section {
+                NavigationLink {
+                    DemoMenuView(cart: cart)
+                } label: {
+                    Label("体验菜品与规格", systemImage: "menucard")
+                }
+            } footer: {
+                Text("演示菜单使用示例菜品，不代表这家商家的实际菜单。")
             }
         }
         .navigationTitle("商家详情")
